@@ -62,8 +62,11 @@ export const DataTablePanel: React.FC<Props> = (props: Props) => {
                 allowHTML: true, // 允许内容为HTML
                 content(reference) {
                     let id = reference.getAttribute('data-target');
-                    let template = document.getElementById(id);
-                    return template?template.innerHTML:"";
+                    if(id){
+                        let template = document.getElementById(id);
+                        return template?template.innerHTML:"";
+                    }
+                   return ""
                   }
               });
         });
