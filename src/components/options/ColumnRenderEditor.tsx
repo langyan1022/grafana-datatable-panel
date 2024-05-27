@@ -1,5 +1,5 @@
 import { SelectableValue, StandardEditorProps } from '@grafana/data';
-import { Box, Button, IconButton, InlineField, Field,Input, Select, Stack,CodeEditor } from '@grafana/ui';
+import { Box, Button, IconButton, InlineField, Field,Select, Stack,CodeEditor } from '@grafana/ui';
 import React from 'react';
 import { getDataFramesFields } from 'transformations';
 import { ColumnRender } from 'types';
