@@ -97,7 +97,7 @@
             }
           }
         ],
-        "type": "briangann-datatable-panel"
+        "type": "colrender-datatable-panel"
       }
     ],
     "refresh": "",

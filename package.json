@@ -1,13 +1,13 @@
 {
-  "name": "briangann-datatable-panel",
+  "name": "colrender-datatable-panel",
   "version": "2.0.0",
   "license": "Apache-2.0",
   "description": "Grafana Datatable Panel",
-  "homepage": "https://github.com/briangann/grafana-datatable-panel",
+  "homepage": "https://github.com/langyan1022/grafana-datatable-panel",
   "author": {
     "name": "Brian Gann",
     "email": "bkgann@gmail.com",
-    "url": "https://github.com/briangann"
+    "url": "https://github.com/langyan1022"
   },
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
@@ -26,10 +26,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/briangann/grafana-datatable-panel.git"
+    "url": "git+https://github.com/langyan1022/grafana-datatable-panel.git"
   },
   "bugs": {
-    "url": "https://github.com/briangann/grafana-datatable-panel/issues"
+    "url": "https://github.com/langyan1022/grafana-datatable-panel/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",

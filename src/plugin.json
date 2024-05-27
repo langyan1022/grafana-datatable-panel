@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
   "name": "Datatable for Grafana",
-  "id": "briangann-datatable-panel",
+  "id": "colrender-datatable-panel",
   "info": {
     "keywords": ["panel"],
     "description": "Grafana datatable panel",
