@@ -1,5 +1,7 @@
 import jQuery from 'jquery';
 import 'datatables.net';
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
 
 import { PanelProps } from '@grafana/data';
 import { useApplyTransformation } from 'hooks/useApplyTransformation';
@@ -11,7 +13,7 @@ import '../css/datatables.css';
 interface Props extends PanelProps<SimpleOptions> {}
 
 export const DataTablePanel: React.FC<Props> = (props: Props) => {
-  const { data, height } = props;
+  const { data, height ,options} = props;
 
   const dataTableId = `data-table-renderer-${props.id}`;
 
@@ -19,15 +21,19 @@ export const DataTablePanel: React.FC<Props> = (props: Props) => {
   //TODO actually pass what transformations to use from the options
   //currently simply doing a join by field (series to columns)
   const dataFrames = useApplyTransformation(data.series);
-  const { columns, rows } = (dataFrames && dataFrameToDataTableFormat(dataFrames)) || { columns: [], rows: [] };
+  const { columns, rows } = (dataFrames && dataFrameToDataTableFormat(dataFrames,options)) || { columns: [], rows: [] };
 
   // actually render the table
   useEffect(() => {
     if (dataTableDOMRef.current && columns.length > 0) {
       if (!jQuery.fn.dataTable.isDataTable(dataTableDOMRef.current)) {
-        jQuery(dataTableDOMRef.current).DataTable({
+       let dataTable= jQuery(dataTableDOMRef.current).DataTable({
           columns,
           data: rows,
+          pagingType: 'full_numbers',
+          paging: options.paging,
+          ordering:  options.ordering,
+          autoWidth: options.autoWidth,
           //TODO these hardcoded height values come from observing the elements datatable creates
           // the scroll Y you pass will be the data part of the table itself, datatable will
           // create all the headers, pagination, etc... and it will not consider it into the
@@ -41,12 +47,37 @@ export const DataTablePanel: React.FC<Props> = (props: Props) => {
             regex: true,
             smart: false,
           },
-          lengthMenu: [
-            [5, 10, 25, 50, 75, 100, -1],
-            [5, 10, 25, 50, 75, 100, 'All'],
-          ],
+          lengthChange: true,
+          lengthMenu: [10, 25, 50, 100],
+          language:{
+            paginate:{
+                next:"下一页",
+                previous:"上一页"
+            }
+          }
+        });
+
+        dataTable.on('draw', function () {
+            tippy('a.tb-tooltips', {
+                allowHTML: true, // 允许内容为HTML
+                content(reference) {
+                    let id = reference.getAttribute('data-target');
+                    let template = document.getElementById(id);
+                    return template?template.innerHTML:"";
+                  }
+              });
         });
       }
+
+      //防止刚进入页面的首页不展示tootlip
+      tippy('a.tb-tooltips', {
+        allowHTML: true, // 允许内容为HTML
+        content(reference) {
+            let id = reference.getAttribute('data-target');
+            let template = document.getElementById(id);
+            return template?template.innerHTML:"";
+          }
+      });
     }
     const currentDom = dataTableDOMRef.current;
 

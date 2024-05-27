@@ -1,31 +1,5 @@
-import { DataFrame, DataTransformerConfig, DataTransformerID, transformDataFrame } from '@grafana/data';
-import { lastValueFrom } from 'rxjs';
-import { TransformationOptions } from 'types';
+import { DataFrame } from '@grafana/data';
 
-export const transformationIDMapping = {
-  [TransformationOptions.TimeSeriesToColumns]: DataTransformerID.joinByField,
-  [TransformationOptions.TimeSeriesToRows]: DataTransformerID.seriesToRows,
-  [TransformationOptions.Table]: DataTransformerID.timeSeriesTable,
-};
-
-export function transformData(
-  data: DataFrame[],
-  transformation: keyof typeof transformationIDMapping,
-  options: DataTransformerConfig['options'] = {}
-): Promise<DataFrame[]> {
-  const transformationID = transformationIDMapping[transformation];
-  return lastValueFrom(
-    transformDataFrame(
-      [
-        {
-          id: transformationID,
-          options,
-        },
-      ],
-      data
-    )
-  );
-}
 export function getDataFramesFields(dataFrames: DataFrame[]): string[] {
   return dataFrames.reduce<string[]>((acc, df) => {
     df.fields.map((field) => {

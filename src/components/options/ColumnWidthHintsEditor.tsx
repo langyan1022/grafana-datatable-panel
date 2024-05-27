@@ -4,7 +4,7 @@ import React, { FormEvent } from 'react';
 import { getDataFramesFields } from 'transformations';
 import { ColumnWidthHint } from 'types';
 
-export function ColumnWidthHints(props: StandardEditorProps<ColumnWidthHint[]>) {
+export function ColumnWidthHintsEditor(props: StandardEditorProps<ColumnWidthHint[]>) {
   const { onChange, value = [] } = props;
   const dataFields = getDataFramesFields(props.context.data);
   const availableFields = dataFields.reduce<SelectableValue[]>((acc, field) => {

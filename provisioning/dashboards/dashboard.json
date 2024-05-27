@@ -1,71 +1,120 @@
 {
-  "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "type": "dashboard"
-      }
-    ]
-  },
-  "editable": true,
-  "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "links": [],
-  "liveNow": false,
-  "panels": [
-    {
-      "datasource": {
-        "type": "grafana",
-        "uid": "grafana"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 1,
-      "options": {
-        "seriesCountSize": "sm",
-        "showSeriesCount": false,
-        "text": "Default value of text input option"
-      },
-      "targets": [
+    "annotations": {
+      "list": [
         {
+          "builtIn": 1,
           "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
+            "type": "grafana",
+            "uid": "-- Grafana --"
           },
-          "queryType": "randomWalk",
-          "refId": "A"
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
         }
-      ],
-      "title": "Panel Title",
-      "type": "briangann-datatablereact-panel"
-    }
-  ],
-  "refresh": "",
-  "schemaVersion": 38,
-  "style": "dark",
-  "tags": [],
-  "templating": {
-    "list": []
-  },
-  "time": {
-    "from": "now-6h",
-    "to": "now"
-  },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Provisioned datatablereact dashboard",
-  "version": 0,
-  "weekStart": ""
-}
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "elasticsearch",
+          "uid": "eb3a5d66-93bb-454e-b98b-540f65b84233"
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "autoWidth": true,
+          "columnRender": [
+            {
+              "name": "watchDetail",
+              "render": "let tooltip_id = \"tooltip-\" + meta.row + meta.col;\r\nlet jsonArray = JSON.parse(data);\r\nlet htmlOut = `<a class=\"tb-tooltips\" data-target=\"${tooltip_id}\">耗时明细 </a><div style=\"display:none\" id=\"${tooltip_id}\"><div class=\"tb_tooltip_area\">`;\r\n\r\nfor (let i = 0; i < jsonArray.length; i++) {\r\n  let item = jsonArray[i];\r\n  let color = item.executeTime > 100 ? 'red' : 'green';\r\n\r\n  htmlOut += `    <div class=\"tooltip-item\">\r\n      <span class=\"key\" style=\"color:${color}; float:left\">${item.watchKey}</span>\r\n      <span class=\"value\" style=\"color:${color}; float:right\">${item.executeTime}ms</span>\r\n    </div>\r\n  `;\r\n}\r\n\r\nhtmlOut += \"</div></div>\";\r\nreturn htmlOut;"
+            },
+            {
+              "name": "uptime",
+              "render": "return data+\" ms\";"
+            }
+          ],
+          "columnWidthHints": [
+            {
+              "name": "application",
+              "width": "1%"
+            }
+          ],
+          "ordering": true,
+          "paging": true
+        },
+        "pluginVersion": "10.3.4",
+        "targets": [
+          {
+            "alias": "",
+            "bucketAggs": [],
+            "datasource": {
+              "type": "elasticsearch",
+              "uid": "eb3a5d66-93bb-454e-b98b-540f65b84233"
+            },
+            "metrics": [
+              {
+                "id": "1",
+                "settings": {
+                  "size": "20"
+                },
+                "type": "raw_data"
+              }
+            ],
+            "query": "",
+            "refId": "A",
+            "timeField": "@timestamp"
+          }
+        ],
+        "title": "Panel Title",
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {
+              "include": {
+                "names": [
+                  "application",
+                  "code",
+                  "globalReqSerialNO",
+                  "method",
+                  "responseMsg",
+                  "timestamp",
+                  "uptime",
+                  "watchDetail"
+                ]
+              }
+            }
+          }
+        ],
+        "type": "briangann-datatable-panel"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-3h",
+      "to": "now"
+    },
+    "timeRangeUpdatedDuringEditOrView": false,
+    "timepicker": {},
+    "timezone": "",
+    "title": "Provisioned datatablereact dashboard",
+    "uid": "a59cbfb5-3d9f-4bf0-8555-b602dff92a45",
+    "version": 21,
+    "weekStart": ""
+  }
