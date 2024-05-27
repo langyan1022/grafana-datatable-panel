@@ -32,7 +32,7 @@ export const DataTablePanel: React.FC<Props> = (props: Props) => {
           data: rows,
           pagingType: 'full_numbers',
           paging: options.paging,
-          ordering:  options.ordering,
+          ordering: options.ordering,
           autoWidth: options.autoWidth,
           //TODO these hardcoded height values come from observing the elements datatable creates
           // the scroll Y you pass will be the data part of the table itself, datatable will
@@ -93,7 +93,7 @@ export const DataTablePanel: React.FC<Props> = (props: Props) => {
         jQuery(currentDom).DataTable().destroy();
       }
     };
-  }, [columns, height, rows]);
+  }, [columns, height, rows,options]);
 
   return (
     <div className="resizer">

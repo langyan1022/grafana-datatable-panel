@@ -1,9 +1,9 @@
 export interface SimpleOptions {
   columnRender: ColumnRender[];
-  columnWidthHints:ColumnWidthHint[];
-  paging:boolean;
-  ordering:boolean;
-  autoWidth:boolean;
+  columnWidthHints: ColumnWidthHint[];
+  paging: boolean;
+  ordering: boolean;
+  autoWidth: boolean;
 }
 export type ColumnRender = {
     name: string;
